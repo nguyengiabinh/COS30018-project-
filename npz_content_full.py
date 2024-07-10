@@ -4,7 +4,7 @@ import numpy as np
 np.set_printoptions(threshold=np.inf)
 
 # Load the .npz file
-npz_file_path = 'data/PEMS04/pems04.npz'
+npz_file_path = 'experiments/PEMS04/astgcn_r_h1d0w0_channel1_1.000000e-03/last_predicted_value_epoch_1.npz'
 output_file_path = 'npz_content_full.txt'
 
 try:

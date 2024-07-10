@@ -34,35 +34,31 @@
 
 #################################################################
 #View individual time slice#
+import numpy as np
+
+# Load the .npz file
+data = np.load("data/PEMS04/PEMS04_r1_d0_w0_astcgn.npz", allow_pickle=True)
+
+# Access the 'data' array
+time_slice = data['data'][1]  # First time slice
+
+# Save the first time slice to a text file
+output_path = "second_time_slice.txt"
+np.savetxt(output_path, time_slice, fmt='%0.4f', delimiter=', ', header='Second Time Slice of PEMS04 Data')
+
+print(f"Second time slice saved to {output_path}")
+
+############################################################################
+# #View how many time slice 
 # import numpy as np
 
 # # Load the .npz file
 # data = np.load("data/PEMS04/pems04.npz", allow_pickle=True)
 
 # # Access the 'data' array
-# time_slice = data['data'][0]  # First time slice
+# traffic_data = data['data']
 
-# # Save the first time slice to a text file
-# output_path = "first_time_slice.txt"
-# np.savetxt(output_path, time_slice, fmt='%0.4f', delimiter=', ', header='First Time Slice of PEMS04 Data')
+# # Get the number of time slices
+# num_time_slices = traffic_data.shape[0]
 
-# print(f"First time slice saved to {output_path}")
-
-############################################################################
-#View how many time slice 
-import numpy as np
-
-# Load the .npz file
-data = np.load("data/PEMS04/pems04.npz", allow_pickle=True)
-
-# Access the 'data' array
-traffic_data = data['data']
-
-# Get the number of time slices
-num_time_slices = traffic_data.shape[0]
-
-print("Number of time slices in the dataset:", num_time_slices)
-
-
-
-
+# print("Number of time slices in the dataset:", num_time_slices)
