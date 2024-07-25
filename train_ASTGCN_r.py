@@ -42,11 +42,27 @@ dataset_name = data_config['dataset_name']
 
 model_name = training_config['model_name']
 
-ctx = training_config['ctx']
-os.environ["CUDA_VISIBLE_DEVICES"] = ctx
-USE_CUDA = torch.cuda.is_available()
-DEVICE = torch.device('cuda:0')
-print("CUDA:", USE_CUDA, DEVICE)
+# # ctx = training_config['ctx']
+# # os.environ["CUDA_VISIBLE_DEVICES"] = ctx
+# # USE_CUDA = torch.cuda.is_available()
+# # DEVICE = torch.device('cuda:0')
+# # print("CUDA:", USE_CUDA, DEVICE)
+
+# DEVICE = torch.device('cpu')
+# print("Using DEVICE:", DEVICE)
+
+# Read environment variable to determine the device
+device_preference = os.getenv('DEVICE_PREFERENCE', 'CPU')  # Default to 'CPU' if not set
+
+if device_preference.upper() == 'GPU' and torch.cuda.is_available():
+    ctx = training_config['ctx']
+    os.environ["CUDA_VISIBLE_DEVICES"] = ctx
+    USE_CUDA = torch.cuda.is_available()
+    DEVICE = torch.device('cuda:0')
+    print("CUDA:", USE_CUDA, DEVICE)
+else:
+    DEVICE = torch.device('cpu')
+    print("Using CPU:", DEVICE)
 
 learning_rate = float(training_config['learning_rate'])
 epochs = int(training_config['epochs'])
