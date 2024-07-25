@@ -2,6 +2,7 @@ import tkinter as tk
 from subprocess import Popen, PIPE, STDOUT, CREATE_NEW_PROCESS_GROUP
 import os
 import threading
+import signal
 
 subprocesses = []  # List to keep track of subprocesses
 
@@ -16,8 +17,7 @@ def update_console(process, text_widget):
 
 def run_script(script_name, config_file, text_widget):
     command = f"python {script_name} --config {config_file}"
-    terminal_command = f'start /B cmd.exe /k "{command}"'
-    proc = Popen(terminal_command, shell=True, stdout=PIPE, stderr=STDOUT, text=True, bufsize=1, creationflags=CREATE_NEW_PROCESS_GROUP)
+    proc = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, text=True, bufsize=1, creationflags=CREATE_NEW_PROCESS_GROUP)
     subprocesses.append(proc)  # Add the process to the list
     threading.Thread(target=update_console, args=(proc, text_widget), daemon=True).start()
     return proc
@@ -47,9 +47,12 @@ def stop_training():
     # Terminate all subprocesses
     while subprocesses:
         process = subprocesses.pop()
-        process.terminate()  # Terminate the process
-        process.wait()  # Wait for the process to terminate
-        console_output.insert(tk.END, "Training interrupted by user.\n")
+        try:
+            process.send_signal(signal.CTRL_BREAK_EVENT)  # Send CTRL_BREAK_EVENT signal to the process group
+            process.wait(timeout=5)  # Wait for the process to terminate
+            console_output.insert(tk.END, "Training interrupted by user.\n")
+        except Exception as e:
+            console_output.insert(tk.END, f"Error terminating process: {e}\n")
 
 # Create main window
 root = tk.Tk()
@@ -85,7 +88,3 @@ console_output.pack()
 
 # Start the GUI event loop
 root.mainloop()
-
-
-
-
