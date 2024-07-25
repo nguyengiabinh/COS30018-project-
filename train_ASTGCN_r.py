@@ -1,7 +1,3 @@
-# https://github.com/guoshnBJTU/ASTGCN-2019-pytorch
-
-#!/usr/bin/env python
-# coding: utf-8
 import torch
 import torch.nn as nn
 import torch.optim as optim

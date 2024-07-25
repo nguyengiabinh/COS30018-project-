@@ -8,12 +8,10 @@
 
 # # Function to asynchronously update the console in the GUI
 # def update_console(process, text_widget):
-#     while True:
-#         line = process.stdout.readline()
-#         if not line:
-#             break
+#     for line in iter(process.stdout.readline, ''):
 #         text_widget.insert(tk.END, line)
 #         text_widget.see(tk.END)
+#     process.stdout.close()
 
 # def run_script(script_name, config_file, text_widget):
 #     command = f"python {script_name} --config {config_file}"
@@ -27,11 +25,13 @@
 #     dataset = dataset_var.get()
 #     config_file = f"configurations/{dataset}_astgcn.conf"
 #     console_output.insert(tk.END, f"Preparing data for {dataset} dataset...\n")
+#     prepare_button.config(state=tk.DISABLED)  # Disable the Prepare Data button
     
 #     # Run the prepareData script and wait for it to complete before enabling the training button
 #     process = run_script("prepareData.py", config_file, console_output)
 #     process.wait()  # Wait for the data preparation to finish
 #     train_button.config(state=tk.NORMAL)  # Enable the training button after data is prepared
+#     prepare_button.config(state=tk.NORMAL)  # Re-enable the Prepare Data button
 
 # # Function to handle Start Button for training
 # def start_training():
@@ -42,6 +42,8 @@
 #     global train_process
 #     train_process = run_script("train_ASTGCN_r.py", config_file, console_output)
 #     console_output.insert(tk.END, f"Started training on {compute} using {dataset} dataset\n")
+#     prepare_button.config(state=tk.DISABLED)  # Disable the Prepare Data button during training
+#     train_button.config(state=tk.DISABLED)  # Disable the Start Training button during training
 
 # def stop_training():
 #     # Terminate all subprocesses
@@ -53,6 +55,8 @@
 #             console_output.insert(tk.END, "Training interrupted by user.\n")
 #         except Exception as e:
 #             console_output.insert(tk.END, f"Error terminating process: {e}\n")
+#     prepare_button.config(state=tk.NORMAL)  # Re-enable the Prepare Data button after training is stopped
+#     train_button.config(state=tk.NORMAL)  # Re-enable the Start Training button after training is stopped
 
 # # Create main window
 # root = tk.Tk()
@@ -93,9 +97,6 @@
 
 
 
-
-
-
 import tkinter as tk
 from subprocess import Popen, PIPE, STDOUT, CREATE_NEW_PROCESS_GROUP
 import os
@@ -106,15 +107,13 @@ subprocesses = []  # List to keep track of subprocesses
 
 # Function to asynchronously update the console in the GUI
 def update_console(process, text_widget):
-    while True:
-        line = process.stdout.readline()
-        if not line:
-            break
+    for line in iter(process.stdout.readline, ''):
         text_widget.insert(tk.END, line)
         text_widget.see(tk.END)
+    process.stdout.close()
 
 def run_script(script_name, config_file, text_widget):
-    command = f"python {script_name} --config {config_file}"
+    command = f"python -u {script_name} --config {config_file}"
     proc = Popen(command, shell=True, stdout=PIPE, stderr=STDOUT, text=True, bufsize=1, creationflags=CREATE_NEW_PROCESS_GROUP)
     subprocesses.append(proc)  # Add the process to the list
     threading.Thread(target=update_console, args=(proc, text_widget), daemon=True).start()
@@ -192,4 +191,3 @@ console_output.pack()
 
 # Start the GUI event loop
 root.mainloop()
-
