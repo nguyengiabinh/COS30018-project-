@@ -254,59 +254,6 @@ def compute_val_loss_mstgcn(net, val_loader, criterion,  masked_flag,missing_val
     return validation_loss
 
 
-# def evaluate_on_test_mstgcn(net, test_loader, test_target_tensor, sw, epoch, _mean, _std):
-#     '''
-#     for rnn, compute MAE, RMSE, MAPE scores of the prediction for every time step on testing set.
-#
-#     :param net: model
-#     :param test_loader: torch.utils.data.utils.DataLoader
-#     :param test_target_tensor: torch.tensor (B, N_nodes, T_output, out_feature)=(B, N_nodes, T_output, 1)
-#     :param sw:
-#     :param epoch: int, current epoch
-#     :param _mean: (1, 1, 3(features), 1)
-#     :param _std: (1, 1, 3(features), 1)
-#     '''
-#
-#     net.train(False)  # ensure dropout layers are in test mode
-#
-#     with torch.no_grad():
-#
-#         test_loader_length = len(test_loader)
-#
-#         test_target_tensor = test_target_tensor.cpu().numpy()
-#
-#         prediction = []  # 存储所有batch的output
-#
-#         for batch_index, batch_data in enumerate(test_loader):
-#
-#             encoder_inputs, labels = batch_data
-#
-#             outputs = net(encoder_inputs)
-#
-#             prediction.append(outputs.detach().cpu().numpy())
-#
-#             if batch_index % 100 == 0:
-#                 print('predicting testing set batch %s / %s' % (batch_index + 1, test_loader_length))
-#
-#         prediction = np.concatenate(prediction, 0)  # (batch, T', 1)
-#         prediction_length = prediction.shape[2]
-#
-#         for i in range(prediction_length):
-#             assert test_target_tensor.shape[0] == prediction.shape[0]
-#             print('current epoch: %s, predict %s points' % (epoch, i))
-#             mae = mean_absolute_error(test_target_tensor[:, :, i], prediction[:, :, i])
-#             rmse = mean_squared_error(test_target_tensor[:, :, i], prediction[:, :, i]) ** 0.5
-#             mape = masked_mape_np(test_target_tensor[:, :, i], prediction[:, :, i], 0)
-#             print('MAE: %.2f' % (mae))
-#             print('RMSE: %.2f' % (rmse))
-#             print('MAPE: %.2f' % (mape))
-#             print()
-#             if sw:
-#                 sw.add_scalar('MAE_%s_points' % (i), mae, epoch)
-#                 sw.add_scalar('RMSE_%s_points' % (i), rmse, epoch)
-#                 sw.add_scalar('MAPE_%s_points' % (i), mape, epoch)
-
-
 def predict_and_save_results_mstgcn(net, data_loader, data_target_tensor, global_step, metric_method, _mean, _std, params_path, type):
     '''
     :param net: nn.Module
