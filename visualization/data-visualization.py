@@ -56,7 +56,7 @@ def update_hover(event, ax, G, pos, node_id_to_index, traffic_data, time_slice, 
                         traffic_flow = read_traffic_flow_data(use_predicted)
                         traffic_flow_value = traffic_flow[node_index, time_slice]
                     else:
-                        traffic_flow = traffic_data[time_slice, node_index, 0]
+                        traffic_flow_value = traffic_data[time_slice, node_index, 0]
                     avg_speed = traffic_data[time_slice, node_index, 1]
                     avg_occupancy = traffic_data[time_slice, node_index, 2]
                     text.set_text(f"Node: {node}\nTraffic Flow: {traffic_flow_value}\nAvg Speed: {avg_speed}\nAvg Occupancy: {avg_occupancy}")
@@ -104,8 +104,8 @@ def update(val):
     plt.draw()
 
 def main():
-    data_npz_path = 'data/PEMS04/pems04.npz'
-    distance_csv_path = 'data/PEMS04/distance.csv'
+    data_npz_path = '../data/PEMS04/pems04.npz'
+    distance_csv_path = '../data/PEMS04/distance.csv'
     
     traffic_data = load_npz_data(data_npz_path)
     distance_df = load_distance_data(distance_csv_path)
