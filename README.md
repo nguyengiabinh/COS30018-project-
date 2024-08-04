@@ -2,9 +2,20 @@
 
 Attention Based Spatial-Temporal Graph Convolutional Networks for Traffic Flow Forecasting (ASTGCN)
 
-<img src="fig/ASTGCN architecture.png" alt="image-20200103164326338" style="zoom:50%;" />
+<img src="fig/ASTGCN.jpg" alt="image-20200103164326338" style="zoom:50%;" />
 
-This is a Pytorch implementation of ASTGCN and MSTCGN. The pytorch version of ASTGCN released here only consists of the  recent component, since the other two components have the same network architecture. 
+# Requirement
+'''
+numpy==1.26.4
+torch==2.3.1
+scipy==1.14.0
+matplotlib==3.9.0
+networkx==3.3
+pandas==2.2.2
+tensorflow==2.16.2
+tensorboardX==2.6.2.2
+scikit-learn==1.5.1
+'''
 
 # Reference
 
@@ -59,17 +70,16 @@ Step 2: Process dataset
 
 # Train and Test
 
-- on PEMS04 dataset
-
-  ```shell
-  python train_ASTGCN_r.py --config configurations/PEMS04_astgcn.conf
-  ```
-
-- on PEMS08 dataset
-
-  ```shell
-  python train_ASTGCN_r.py --config configurations/PEMS08_astgcn.conf
-  ```
+run 
+'''shell
+python GUI.py
+'''
+in the GUI, the proces is in sequence
+Step 1: Choose the dataset available
+Step 2: Choose to use CPU or GPU for the training process
+Step 3: Prepare data
+Step 4(wont be available to do if prepare data has not been complete): Train the Model
+At anytime in training user can press the Stop Training button to force stop the process
 
   
 
