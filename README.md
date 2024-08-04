@@ -73,10 +73,15 @@ Step 2: Process dataset
 run  `python GUI.py`
 
 in the GUI, the proces is in sequence
+
 Step 1: Choose the dataset available
+
 Step 2: Choose to use CPU or GPU for the training process
+
 Step 3: Prepare data
+
 Step 4(wont be available to do if prepare data has not been complete): Train the Model
+
 At anytime in training user can press the Stop Training button to force stop the process
 
   
