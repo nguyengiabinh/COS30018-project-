@@ -5,7 +5,7 @@ Attention Based Spatial-Temporal Graph Convolutional Networks for Traffic Flow F
 <img src="fig/ASTGCN.jpg" alt="image-20200103164326338" style="zoom:50%;" />
 
 # Requirement
-  '''
+```
   numpy==1.26.4
   torch==2.3.1
   scipy==1.14.0
@@ -15,7 +15,7 @@ Attention Based Spatial-Temporal Graph Convolutional Networks for Traffic Flow F
   tensorflow==2.16.2
   tensorboardX==2.6.2.2
   scikit-learn==1.5.1
-  '''
+```
 
 # Reference
 
@@ -70,7 +70,8 @@ Step 2: Process dataset
 
 # Train and Test
 
-run  `python GUI.py`.
+run  `python GUI.py`
+
 in the GUI, the proces is in sequence
 Step 1: Choose the dataset available
 Step 2: Choose to use CPU or GPU for the training process
