@@ -72,6 +72,8 @@ Step 2: Process dataset
 
 run  `python GUI.py`
 
+<img src="fig/GUI.png" alt="image-helpus" style="zoom:50%;" />
+
 in the GUI, the proces is in sequence
 
 Step 1: Choose the dataset available
