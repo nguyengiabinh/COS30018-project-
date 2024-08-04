@@ -71,9 +71,7 @@ Step 2: Process dataset
 # Train and Test
 
 run 
-'''shell
-python GUI.py
-'''
+'python GUI.py'
 in the GUI, the proces is in sequence
 Step 1: Choose the dataset available
 Step 2: Choose to use CPU or GPU for the training process
