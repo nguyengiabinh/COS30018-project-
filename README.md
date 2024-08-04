@@ -5,17 +5,17 @@ Attention Based Spatial-Temporal Graph Convolutional Networks for Traffic Flow F
 <img src="fig/ASTGCN.jpg" alt="image-20200103164326338" style="zoom:50%;" />
 
 # Requirement
-'''
-numpy==1.26.4
-torch==2.3.1
-scipy==1.14.0
-matplotlib==3.9.0
-networkx==3.3
-pandas==2.2.2
-tensorflow==2.16.2
-tensorboardX==2.6.2.2
-scikit-learn==1.5.1
-'''
+  '''
+  numpy==1.26.4
+  torch==2.3.1
+  scipy==1.14.0
+  matplotlib==3.9.0
+  networkx==3.3
+  pandas==2.2.2
+  tensorflow==2.16.2
+  tensorboardX==2.6.2.2
+  scikit-learn==1.5.1
+  '''
 
 # Reference
 
